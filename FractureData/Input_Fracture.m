@@ -1,8 +1,8 @@
 % input file with fracture information
 %--------------------------------------------------------------------------
-input_file = '../FractureData/CajonPass.dat';
+input_file = '../CajonPass/CajonPass.dat';
 
-output_file = '../OUTPUT/Inversion_Output';
+output_file = '../CajonPass/Inversion_Output';
 
 
 
