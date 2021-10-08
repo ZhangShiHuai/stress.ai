@@ -83,11 +83,11 @@ end
 [x_sigma_3,y_sigma_3] = StressVectorToLowerHemisphere(Sigma_vector_3);
 %
 %
-h1 = plot(-y_sigma_1,-x_sigma_1,'k>','MarkerSize',20,'LineWidth',2.5);
+plot(-y_sigma_1,-x_sigma_1,'k>','MarkerSize',20,'LineWidth',2.5); % Sigma_1
 hold on
-h2 = plot(y_sigma_2,x_sigma_2,'ks','MarkerSize',20,'LineWidth',2.5);
+plot(y_sigma_2,x_sigma_2,'ks','MarkerSize',20,'LineWidth',2.5); % Sigma_2
 hold on
-h3 = plot(y_sigma_3,x_sigma_3,'kd','MarkerSize',20,'LineWidth',2.5);
+plot(y_sigma_3,x_sigma_3,'kd','MarkerSize',20,'LineWidth',2.5); % Sigma_3
 hold on
 
 
