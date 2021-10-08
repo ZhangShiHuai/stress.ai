@@ -13,7 +13,7 @@ initial_w = zeros(n + 1, 1);
 options = optimset('GradObj', 'on', 'MaxIter', 400);
 %  Run fminunc to obtain the optimal w
 %  This function will return w and the cost 
-[w, cost] = fminunc(@(t)(costFunction(t, z, y)), initial_theta, options);
+[w, cost] = fminunc(@(t)(costFunction(t, z, y)), initial_w, options);
 MLE = exp(-cost);
 end
 
