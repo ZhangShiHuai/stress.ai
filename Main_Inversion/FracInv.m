@@ -166,3 +166,8 @@ while a_int > 0.5
     phi_int = phi_int_new;
     S3_int = S3_int_new;
 end
+%
+%
+%
+output_file_mat = [output_file,'.mat'];
+save(output_file_mat,'MLE_store','a_range','b_range','c_range','phi_range');
