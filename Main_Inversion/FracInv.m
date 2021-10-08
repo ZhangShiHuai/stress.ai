@@ -61,7 +61,7 @@ end
 %% Main loop for the optimal combination of stress parameters
 MLE_store = zeros(total_cnt,100); % a, b, c, phi, MLE
 iteration_cnt = 0;
-while iteration_cnt < 17
+while a_int > 0.5
     iteration_cnt = iteration_cnt+1;
     %
     Trial_cnt = 0;
@@ -84,7 +84,8 @@ while iteration_cnt < 17
         % ranking MLE
         MLE_store(Trial_cnt,iteration_cnt) = MLE;
     end
-    %
+	%
+    % select top 40 combinations
     [~,Sort_Index] = sort(MLE_store(:,iteration_cnt),'descend');
     Rank_Top40 = [a_range(Sort_Index(1:40),iteration_cnt)...
         b_range(Sort_Index(1:40),iteration_cnt)...
@@ -93,6 +94,7 @@ while iteration_cnt < 17
         S3_range(Sort_Index(1:40),iteration_cnt)...
         MLE_store(Sort_Index(1:40),iteration_cnt)];
     %
+	% update parameter intervals
     a_int_new = (2/3)*a_int;
     b_int_new = (2/3)*b_int;
     c_int_new = (2/3)*c_int;
@@ -110,7 +112,7 @@ while iteration_cnt < 17
                             %
                             a_range(Trial_cnt,iteration_cnt+1) = Rank_Top40(kk,1)-a_int+a_int_new*ii;
                             if a_range(Trial_cnt,iteration_cnt+1) > a_max
-                                a_range(Trial_cnt,iteration_cnt+1) = a_max;
+                                a_range(Trial_cnt,iteration_cnt+1) = a_max; % parameter should be within the reasonable range
                             end
                             if a_range(Trial_cnt,iteration_cnt+1) < a_min
                                 a_range(Trial_cnt,iteration_cnt+1) = a_min;
@@ -125,7 +127,7 @@ while iteration_cnt < 17
                             end
                             %
                             c_range(Trial_cnt,iteration_cnt+1) = Rank_Top40(kk,3)-c_int+c_int_new*mm;
-                            if abs(b_range(Trial_cnt,iteration_cnt+1)-90)< 5
+                            if abs(b_range(Trial_cnt,iteration_cnt+1)-90)< 5 % assuming Sv is vertical
                                 c_range(Trial_cnt,iteration_cnt+1) = 0;
                             end
                             if c_range(Trial_cnt,iteration_cnt+1) > c_max
@@ -164,169 +166,3 @@ while iteration_cnt < 17
     phi_int = phi_int_new;
     S3_int = S3_int_new;
 end
-%% Euler angle a
-% define color
-MaxLikelihood = max(max(MLE_store(:,1:12)));
-MinLikelihood = min(min(MLE_store(:,1:12)));
-rgb1=[0.230, 0.299, 0.754];
-rgb2=[0.706, 0.016, 0.150];
-C = diverging_map(256,rgb1,rgb2);
-%
-figure
-hold on
-% plot([0 12],[160 160],'r:','LineWidth',2) % KTB
-% plot([0 12],[86 86],'r:','LineWidth',2) % NTS
-plot([0 12],[237 237],'r:','LineWidth',2) % Cajon Pass
-% plot([0 17],[300 300],'r:','LineWidth',2) % Long Valley
-%
-xlim([0,12])
-ylim([0,360])
-set(gca,'ytick',0:45:360)
-set(gca,'xtick',1:1:12)
-grid on
-box on
-%
-%
-for i = 1:12
-    for j=1:(para_cnt-1)
-        if a_range(j,i)==a_range(j+1,i)
-        else
-            Color_ind = round((MLE_store(j,i)-MinLikelihood)/(MaxLikelihood-MinLikelihood)*255)+1;
-            Color_Array = C(Color_ind,:);
-            plot(i,a_range(j,i),'o','Color',Color_Array,'MarkerFaceColor',Color_Array)
-            hold on
-        end
-    end
-    Color_ind = round((MLE_store(j+1,i)-MinLikelihood)/(MaxLikelihood-MinLikelihood)*255)+1;
-    Color_Array = C(Color_ind,:);
-    plot(i,a_range(j+1,i),'o','Color',Color_Array,'MarkerFaceColor',Color_Array)
-    hold on
-end
-%
-set(gcf,'Colormap',C);
-colormap(C);
-caxis([MinLikelihood MaxLikelihood]);
-cb = colorbar;
-get(cb,'Position');
-cb.Label.String = 'Likelihood Estimation';
-%
-%% Euler angle b
-figure
-% plot([0 12],[0 0],'r:','LineWidth',2) % KTB
-% plot([0 12],[90 90],'r:','LineWidth',2) % NTS
-plot([0 17],[0 0],'r:','LineWidth',2) % Cajon Pass
-% plot([0 17],[0 0],'r:','LineWidth',2) % Long Valley
-%
-xlim([0,17])
-ylim([0,90])
-set(gca,'ytick',0:30:90)
-set(gca,'xtick',1:2:17)
-grid on
-box on
-%
-hold on
-for i = 1:17
-    for j=1:(para_cnt-1)
-        if b_range(j,i)==b_range(j+1,i)
-        else
-            Color_ind = round((MLE_store(j,i)-MinLikelihood)/(MaxLikelihood-MinLikelihood)*255)+1;
-            Color_Array = C(Color_ind,:);
-            plot(i,b_range(j,i),'o','Color',Color_Array,'MarkerFaceColor',Color_Array)
-            hold on
-        end
-    end
-    Color_ind = round((MLE_store(j+1,i)-MinLikelihood)/(MaxLikelihood-MinLikelihood)*255)+1;
-    Color_Array = C(Color_ind,:);
-    plot(i,b_range(j+1,i),'o','Color',Color_Array,'MarkerFaceColor',Color_Array)
-    hold on
-end
-hold on
-
-%% Euler angle c
-figure
-% plot([0 12],[90 90],'r:','LineWidth',2) % KTB
-% plot([0 12],[0 0],'r:','LineWidth',2) % NTS
-plot([0 17],[90 90],'r:','LineWidth',2) % Cajon Pass
-% plot([0 17],[90 90],'r:','LineWidth',2) % Long Valley
-%
-xlim([0,17])
-ylim([0,90])
-set(gca,'ytick',0:30:90)
-set(gca,'xtick',1:2:17)
-grid on
-box on
-%
-hold on
-for i = 1:17
-    for j=1:(para_cnt-1)
-        if c_range(j,i)==c_range(j+1,i)
-        else
-            Color_ind = round((MLE_store(j,i)-MinLikelihood)/(MaxLikelihood-MinLikelihood)*255)+1;
-            Color_Array = C(Color_ind,:);
-            plot(i,c_range(j,i),'o','Color',Color_Array,'MarkerFaceColor',Color_Array)
-            hold on
-        end
-    end
-    Color_ind = round((MLE_store(j+1,i)-MinLikelihood)/(MaxLikelihood-MinLikelihood)*255)+1;
-    Color_Array = C(Color_ind,:);
-    plot(i,c_range(j+1,i),'o','Color',Color_Array,'MarkerFaceColor',Color_Array)
-    hold on
-end
-hold on
-
-%%  Euler angle phi
-figure
-% plot([0 12],[0.32 0.32],'r:','LineWidth',2) % KTB
-% plot([0 12],[0.208 0.208],'r:','LineWidth',2) % NTS
-plot([0 17],[0.6022 0.6022],'r:','LineWidth',2) % Cajon Pass
-% plot([0 17],[0.7188 0.7188],'r:','LineWidth',2) % Long Valley
-%
-xlim([0,17])
-ylim([0,1])
-set(gca,'ytick',0:0.1:1)
-set(gca,'xtick',1:2:17)
-grid on
-box on
-hold on
-%
-for i = 1:17
-    for j=1:(para_cnt-1)
-        if phi_range(j,i)==phi_range(j+1,i)
-        else
-            Color_ind = round((MLE_store(j,i)-MinLikelihood)/(MaxLikelihood-MinLikelihood)*255)+1;
-            Color_Array = C(Color_ind,:);
-            plot(i,phi_range(j,i),'o','Color',Color_Array,'MarkerFaceColor',Color_Array)
-            hold on
-        end
-    end
-    Color_ind = round((MLE_store(j+1,i)-MinLikelihood)/(MaxLikelihood-MinLikelihood)*255)+1;
-    Color_Array = C(Color_ind,:);
-    plot(i,phi_range(j+1,i),'o','Color',Color_Array,'MarkerFaceColor',Color_Array)
-    hold on
-end
-hold on
-
-
-%% Solve phi
-mu_bdr = -theta(1)/theta(2);
-MostCritical_FractureNo = find(criticality==1);
-% MostCritical_FractureNo = MostCritical_FractureNo((MostCritical_FractureNo<=258));
-
-
-stress_tensor = linear_stress_inversion_Michael(Strike(MostCritical_FractureNo),dip(MostCritical_FractureNo),rake(MostCritical_FractureNo));
-% stress_tensor = linear_stress_inversion_Michael(Strike,dip,rake);
-% resultant stress tenor
-[vector,diag_tensor] = eig(stress_tensor);
-
-value = eig(diag_tensor);
-[value_sorted,j] = sort(value);
-
-sigma_vector_1 = vector(:,j(1));
-sigma_vector_2 = vector(:,j(2));
-sigma_vector_3 = vector(:,j(3));
-
-sigma = sort(eig(stress_tensor));
-phi = (sigma(2)-sigma(3))/(sigma(1)-sigma(3));
-%% Solve S3 and Pp
-
-
