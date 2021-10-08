@@ -10,7 +10,7 @@ clear; close all;
 %--------------------------------------------------------------------------
 % reading input parameters                                         
 %--------------------------------------------------------------------------
-run('../Data/Input_Fracture')
+run('../Initiation/Input_Fracture')
 [depth,dip_dir,dip,criticality]  = textread(input_file,'%f%f%f%f','commentstyle','matlab');
 % Fracture Strike
 Strike = dip_dir;
