@@ -1,6 +1,6 @@
 %% Plot iterations of each stress parameter
 clear
-run('../Data/Input_Fracture')
+run('../Initiation/Input_Fracture')
 load([output_file '.mat'])
 %% Field measurements
 Euler_a = 237; % or 237 - 180 = 57
