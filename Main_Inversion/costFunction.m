@@ -4,7 +4,7 @@ function [J, grad] = costFunction(w, x, y)
 %
 % Initialize some useful values
 m = length(y); % number of fractures
-
+grad = zeros(size(w));
 %
 %=====================Compute J (cost) ====================
 
