@@ -3,7 +3,8 @@
 %   program FracInv                                                       %
 %   December 2020                                                         %
 %                                   By Shihuai Zhang @ ETH Zurich         %
-%                                                                         %
+%   Email: zhangshi@ethz.ch                                               %
+%          shihuaizhang.xh1@gmail.com                                     %
 %-------------------------------------------------------------------------%
 clear; close all;
 %--------------------------------------------------------------------------
