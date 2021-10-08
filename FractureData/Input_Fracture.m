@@ -2,7 +2,7 @@
 %--------------------------------------------------------------------------
 input_file = 'CajonPass.dat';
 
-
+output_file = '../OUTPUT/Inversion_Output';
 
 
 
