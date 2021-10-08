@@ -1,5 +1,5 @@
 # stress.ai
-This code is for stress inversion according to fracture data obtained from deep boreholes.
+This code is for stress inversion according to fracture data (hydraulic conductivity) obtained from deep boreholes.
 
 Taking scientific borehole Cajon Pass as an example, this MATLAB package includes 4 folders:
 
