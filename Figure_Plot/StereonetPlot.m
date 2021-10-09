@@ -29,7 +29,7 @@ rgb1=[0.230, 0.299, 0.754];
 rgb2=[0.706, 0.016, 0.150];
 C = diverging_map(1000,rgb1,rgb2);
 %
-for i = 1%:Iteration_Num
+for i = 1:Iteration_Num
     for j=1:para_cnt
         [Sigma_vector_1,Sigma_vector_2,Sigma_vector_3] = EulerAnglesToStressVector(a_range(j,i),b_range(j,i),c_range(j,i));
         %
