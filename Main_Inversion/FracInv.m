@@ -1,6 +1,6 @@
 %-------------------Stress Inversion based on Fractures-------------------%
 %                                                                         %
-%   program FracInv                                                       %
+%   program FracInv     (for non-commercial use only)                     %
 %   December 2020                                                         %
 %                                   By Shihuai Zhang @ ETH Zurich         %
 %   Email: zhangshi@ethz.ch                                               %
