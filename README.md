@@ -9,6 +9,6 @@ Taking scientific borehole Cajon Pass as an example, this MATLAB package include
 4) Figure_Plot--Providing two ways to plot the inversion results ("Plotting.m" for individual stress parameters; "StereonetPlot.m" for Lower-hemisphere stereographic projections of principal stresses)
 
 For more details and more datasets, please refer to:
-Zhang, Ma, and Zoback, 2021, Hydrologic identification of critically-stressed fractures and its use to determine the in situ stress field. Submitted.
+Zhang, Ma, and Zoback, 2022, Determination of the Crustal Friction and State of Stress in Deep Borholes using Hydrologic Indicators. Submitted.
 
 
